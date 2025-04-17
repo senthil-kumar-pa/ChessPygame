@@ -20,7 +20,7 @@ def load_images():
     for piece in pieces:
         IMAGES[piece] = pygame.transform.scale(
             pygame.image.load(os.path.join("images", piece + ".png")),
-            (SQUARE_SIZE, SQUARE_SIZE)  # Keep the main board pieces at the original size
+            (SQUARE_SIZE, SQUARE_SIZE-15)  # Keep the main board pieces at the original size
         )
 
 # Sounds
@@ -46,7 +46,7 @@ def draw_board(win, board, selected, hovered, turn, move_log, message, captured_
     offset_y = 0  # No status bar height for this layout
 
     # Board
-    colors = [pygame.Color("darkred"), pygame.Color("black")]
+    colors = [pygame.Color("lightblue"), pygame.Color("orange")]
     for r in range(ROWS):
         for c in range(COLS):
             color = colors[(r + c) % 2]
@@ -63,7 +63,7 @@ def draw_board(win, board, selected, hovered, turn, move_log, message, captured_
 
             piece = board[r][c]
             if piece != "":
-                win.blit(IMAGES[piece], pygame.Rect(c*SQUARE_SIZE, r*SQUARE_SIZE+offset_y, SQUARE_SIZE, SQUARE_SIZE))
+                win.blit(IMAGES[piece], pygame.Rect(c*SQUARE_SIZE, r*SQUARE_SIZE+offset_y+10, SQUARE_SIZE, SQUARE_SIZE))
 
     # Move log and turn display
     log_rect = pygame.Rect(WIDTH, 0, LOG_WIDTH, HEIGHT - 100)  # Adjusted for scrolling space
@@ -109,7 +109,7 @@ def draw_board(win, board, selected, hovered, turn, move_log, message, captured_
     pygame.draw.rect(win, pygame.Color("darkblue"), restart_button)  # Button
     pygame.draw.rect(win, pygame.Color("white"), restart_button, 5)  # Border
     font = pygame.font.SysFont(None, 30)
-    win.blit(font.render("Restart", True, pygame.Color("white")), (WIDTH + 85, HEIGHT - 50))  # Center text in button
+    win.blit(font.render("Restart", True, pygame.Color("white")), (WIDTH + 70, HEIGHT - 45))  # Center text in button
 
 # Move logic
 def is_valid_move(board, start, end, turn):
